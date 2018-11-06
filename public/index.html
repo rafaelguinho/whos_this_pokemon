@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles/reset.css" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        body {
+            background-image: url("assets/img/c1406a95.png");
+            background-repeat: repeat;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+
+    <script>
+        document.body.style.overflow = 'hidden';
+        var canvas = document.getElementById("canvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        var context = canvas.getContext("2d"),
+            img = new Image();
+
+        silhouette('assets/img/pokemons/1.png', canvas, context);
+
+
+        function silhouette(imageUrl, canvas, ctx) {
+            var image = new Image();
+            image.src = imageUrl;
+
+            image.onload = function () {
+
+                var newImgWidth = 290;
+                var newImgHeight = image.height * (newImgWidth / image.width);
+
+                var imgX = canvas.width / 2 - newImgWidth / 2;
+                var imgY = (canvas.height / 2 - newImgHeight / 2) - 30;
+
+                ctx.drawImage(image, imgX, imgY,
+                    newImgWidth, newImgHeight
+                );
+
+
+                var rawImage = ctx.getImageData(imgX, imgY, newImgWidth, newImgHeight);
+
+                for (var i = 0; i < rawImage.data.length; i += 4) {
+                    if (rawImage.data[i + 3] >= 100) {
+                        rawImage.data[i] = 30;
+                        rawImage.data[i + 1] = 30;
+                        rawImage.data[i + 2] = 30;
+                        rawImage.data[i + 3] = 255;
+                    } else {
+                        rawImage.data[i + 3] = 0;
+                    }
+                }
+
+                ctx.putImageData(rawImage, imgX, imgY);
+
+
+            };
+        }
+
+    </script>
+</body>
+
+</html>
