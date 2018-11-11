@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="styles/reset.css" rel="stylesheet">
     <link href="styles/style.css" rel="stylesheet">
-    <title>Document</title>
+    <title>Who is this Pokemon?</title>
     <style>
         body {
             background-image: url("assets/img/c1406a95.png");
@@ -30,10 +30,37 @@
         var context = canvas.getContext("2d"),
             img = new Image();
 
-        silhouette('assets/img/pokemons/1.png', canvas, context);
+        var indexPokemon = getRandom(1, 150);
 
+        selectPokemon(indexPokemon).then((pokemon) => {
 
-        function silhouette(imageUrl, canvas, ctx) {
+            drawPokemon(`assets/img/pokemons/${pokemon.id}.png`, canvas, context, true);
+
+            gelAllPokemonsNames().then((allNames) => {
+                createOptions(pokemon, allNames)
+            })
+
+        });
+
+        async function gelAllPokemonsNames() {
+            let result = await fetch('https://pokeapi.co/api/v2/pokemon/');
+            let pokemons = await result.json();
+
+            return pokemons.results.map(x => x.name)
+        }
+
+        async function selectPokemon(indexPokemon) {
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${indexPokemon}/`);
+            const pokemon = await response.json();
+
+            return pokemon;
+        }
+
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function drawPokemon(imageUrl, canvas, ctx, doSilhouette) {
             var image = new Image();
             image.src = imageUrl;
 
@@ -49,6 +76,7 @@
                     newImgWidth, newImgHeight
                 );
 
+                if (!doSilhouette) return;
 
                 var rawImage = ctx.getImageData(imgX, imgY, newImgWidth, newImgHeight);
 
@@ -67,6 +95,37 @@
 
 
             };
+        }
+
+        function createOptions(pokemon, allNames) {
+            let others = allNames.filter(x => x != pokemon.name);
+
+            let index1 = getRandom(0, allNames.length);
+            let index2 = getRandom(0, allNames.length);
+
+            while (index1 == index2) {
+                index2 = getRandom(0, allNames.length);
+            }
+
+            var options = [allNames[index1], allNames[index2], pokemon.name];
+
+            var shuffledOptions = shuffle(options);
+        }
+
+        function shuffle(array) {
+            var currentIndex = array.length, temporaryValue, randomIndex;
+
+            while (0 !== currentIndex) {
+
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+
+            return array;
         }
 
     </script>
