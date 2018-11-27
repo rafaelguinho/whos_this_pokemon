@@ -21,7 +21,6 @@
     width: 10px;
     height: 10px;
     border-radius: 4px;
-    border-radius: 50%;
     content: '';
     background-color: #f1c40f;
     position: absolute;
@@ -61,6 +60,5 @@
   }
   
   #options {
-    padding: 0 16px;
-    width: 100%;
+    width: 90vw;
   }
