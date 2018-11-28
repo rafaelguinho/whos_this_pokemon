@@ -24,7 +24,7 @@
             height: calc(100vh - 45px);
             padding: .5em;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             flex-direction: column
         }
@@ -38,7 +38,8 @@
     <div class="container">
         <progress id="timeLeft" max="8" value="8"></progress>
         <canvas id="canvas"></canvas>
-        <form id="options"></form>
+        <form id="options">
+        </form>
     </div>
 
     <script>
@@ -47,11 +48,11 @@
 
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
-        } else if (elem.mozRequestFullScreen) { /* Firefox */
+        } else if (elem.mozRequestFullScreen) { 
             elem.mozRequestFullScreen();
-        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+        } else if (elem.webkitRequestFullscreen) { 
             elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+        } else if (elem.msRequestFullscreen) { 
             elem.msRequestFullscreen();
         }
 

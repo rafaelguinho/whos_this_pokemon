@@ -34,7 +34,7 @@ function showOptions(options) {
     for (let i = 0; i < options.length; i++) {
 
         html += `<div class="inputGroup">
-                    <input id="radio${i}" value="${options[i]}" name="radio" type="radio" onclick="checkAnswer(this.value)"/>
+                    <input id="radio${i}" value="${options[i]}" name="radio" type="radio" onclick="checkAnswer(this)"/>
                     <label for="radio${i}">${options[i]}</label>
                 </div>`;
     }
@@ -55,13 +55,15 @@ function startCountDown() {
     }, 1000);
 }
 
-function checkAnswer(answer) {
-    if (answer.toUpperCase() === currentPokemon.name.toUpperCase()) {
+function checkAnswer(option) {
+    console.log(option);
+    if (option.value.toUpperCase() === currentPokemon.name.toUpperCase()) {
         console.log("CORRECT!");
         clearInterval(countDown);
         drawPokemon(`assets/img/pokemons/${currentPokemon.id}.png`, canvas, context, false);
     } else {
         console.log("WRONG!");
+       // document.querySelector("#options").innerHTML = '';
     }
 }
 
