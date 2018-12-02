@@ -1,0 +1,21 @@
+
+
+.pokemon-name{
+    font-family: 'pokemon';
+    font-size: 9vw;
+    white-space: nowrap;
+    text-align: center;
+    letter-spacing: 4px
+}
+
+.success{
+    color: #f5c611;
+    text-shadow: 2px 2px #1d1d1d;
+}
+.bigger{
+    font-size: 3em;
+}
+
+/*
+bigger
+*/

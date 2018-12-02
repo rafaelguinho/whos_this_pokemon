@@ -59,10 +59,7 @@
     visibility: hidden;
   }
   
-  #options {
-    width: 90vw;
-    padding: 0 0.6em;
-    background-color: #f3f3f3;
-    border-radius: 3px;
-    box-shadow: 9px 9px 6px -6px rgba(0,0,0,0.47);
+  #options{
+    display: flex;
+    flex-direction: column
   }

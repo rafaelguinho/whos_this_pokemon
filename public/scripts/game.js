@@ -34,7 +34,7 @@ function showOptions(options) {
     for (let i = 0; i < options.length; i++) {
 
         html += `<div class="inputGroup">
-                    <input id="radio${i}" value="${options[i]}" name="radio" type="radio" onclick="checkAnswer(this)"/>
+                    <input id="radio${i}" value="${options[i]}" class="option" name="radio" type="radio" onclick="checkAnswer(this)"/>
                     <label for="radio${i}">${options[i]}</label>
                 </div>`;
     }
@@ -46,25 +46,40 @@ function startCountDown() {
     var timeleft = 8;
     countDown = setInterval(function () {
         document.querySelector("#timeLeft").value = --timeleft;
-        
-        if (timeleft <= 0){
+
+        if (timeleft <= 0) {
             timesUp = true;
             clearInterval(countDown);
         }
-            
+
     }, 1000);
 }
 
 function checkAnswer(option) {
-    console.log(option);
+    disableAllOptions();
     if (option.value.toUpperCase() === currentPokemon.name.toUpperCase()) {
-        console.log("CORRECT!");
         clearInterval(countDown);
+        document.getElementById('pokemon_name').appendChild(document.createTextNode(currentPokemon.name.toUpperCase()));
         drawPokemon(`assets/img/pokemons/${currentPokemon.id}.png`, canvas, context, false);
+        flipCheckAnswerCard(true);
+
     } else {
-        console.log("WRONG!");
-       // document.querySelector("#options").innerHTML = '';
+        flipCheckAnswerCard(false);
     }
+}
+
+function disableAllOptions() {
+    let options = document.getElementsByClassName('option');
+    for (let i = 0; i < options.length; i++) {
+        options[i].disabled = true;
+    }
+}
+
+function flipCheckAnswerCard(isCorrect) {
+    setTimeout(() => {
+        document.querySelector('.flipper').classList.toggle('hover');
+    }, 400)
+
 }
 
 async function gelAllPokemonsNames() {

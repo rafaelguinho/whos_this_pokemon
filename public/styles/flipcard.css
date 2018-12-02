@@ -1,0 +1,67 @@
+.flipper{
+    width: 86vw;
+    padding: 0 0.6em;
+    background-color: #f3f3f3;
+    border-radius: 3px;
+    perspective: 1000px;
+}
+
+.flipper.hover {
+    transform: rotateX(180deg);
+    background-color: transparent;
+}
+
+.flipper.hover > .front{
+    display: none
+}
+
+.flipper:not(.hover) > .back{
+    display: none
+}
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+    
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+	transition: 0.6s;
+	transform-style: preserve-3d;
+    min-height: 180px;
+	top: 0;
+	left: 0;
+}
+
+/*  UPDATED! front pane, placed above back */
+.front {
+	z-index: 2;
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateX(180deg);
+}
+
+/* 
+	Some vertical flip updates 
+*/
+.vertical.flip-container {
+	position: relative;
+}
+
+	.vertical .back {
+		transform: rotateX(180deg);
+	}
+
+	.vertical.flip-container:hover .back {
+	    transform: rotateX(0deg);
+	}
+
+	.vertical.flip-container:hover .front {
+	    transform: rotateX(180deg);
+	}
