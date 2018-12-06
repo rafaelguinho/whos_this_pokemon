@@ -4,7 +4,7 @@ let currentPokemon = null;
 let timesUp = false;
 var countDown = null;
 
-var canvasWidth = 225;
+var canvasWidth = 250;
 var canvas = document.getElementById("canvas");
 canvas.width = canvasWidth;
 
