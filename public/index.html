@@ -12,7 +12,7 @@
     <link href="styles/radiobutton.css" rel="stylesheet">
     <link href="styles/progress.css" rel="stylesheet">
     <link href="styles/messages.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles/flipcard.css">
+    <link href="styles/button.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="styles/animate.css">
     <title>Who is this Pokemon?</title>
@@ -43,20 +43,24 @@
         <canvas id="canvas" class="animated bounce"></canvas>
 
 
-        <div class="flipper animated fadeInUp">
-            <div class="front">
-                <div id="options">
-                </div>
-            </div>
-            <div class="back">
-                <p class="pokemon-name success">Yeah!</p>
-                <br>
-                <p class="pokemon-name success">It's <span id="pokemon_name"></span>!</p>
-
+        <div id="options-cards" class="animated fadeInUp">
+            <div id="options">
             </div>
         </div>
 
+
+        <div id="success-card" hidden>
+            <div id="correct-message">
+                <p class="pokemon-name success">Yeah!</p>
+                <br>
+                <p class="pokemon-name success">It's <span id="pokemon_name"></span>!</p>
+            </div>
+            <a href="#" class="myButton">NEXT</a> 
+        </div>
+
     </div>
+
+
 
     <script>
 

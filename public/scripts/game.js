@@ -76,10 +76,37 @@ function disableAllOptions() {
 }
 
 function flipCheckAnswerCard(isCorrect) {
-    setTimeout(() => {
-        document.querySelector('.flipper').classList.toggle('hover');
-    }, 400)
+    isCorrect ? isCorrectAnswerEffects() : isIncorrectAnswerEffects()
+}
 
+function isCorrectAnswerEffects() {
+    var optionsCard = document.querySelector('#options-cards');
+
+    optionsCard.classList.remove('animated');
+    optionsCard.classList.remove('fadeInUp');
+    optionsCard.classList.add('animated');
+    optionsCard.classList.add('flipOutY');
+
+    optionsCard.addEventListener("animationend", () => {
+        optionsCard.style.display = 'none';
+        document.querySelector('#success-card').hidden = false;
+        document.querySelector('#success-card').classList.add('flex-content');
+        
+        document.querySelector('#correct-message').classList.add('animated');
+        document.querySelector('#correct-message').classList.add('tada');
+
+        document.querySelector('.myButton').classList.add('animated');
+        document.querySelector('.myButton').classList.add('fadeIn');
+    });
+}
+
+function isIncorrectAnswerEffects() {
+    var optionsCard = document.querySelector('#options-cards');
+
+    optionsCard.classList.remove('animated');
+    optionsCard.classList.remove('fadeInUp');
+    optionsCard.classList.add('animated');
+    optionsCard.classList.add('shake');
 }
 
 async function gelAllPokemonsNames() {
