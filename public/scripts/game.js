@@ -1,5 +1,19 @@
 document.body.style.overflow = 'hidden';
 
+var optionsHtmlContent = 
+`<div id="options-cards" class="animated fadeInUp">
+    <div id="options">
+    </div>
+</div>
+<div id="success-card" hidden>
+    <div id="correct-message">
+        <p class="pokemon-name success">Yeah!</p>
+        <br>
+        <p class="pokemon-name success">It's <span id="pokemon_name"></span>!</p>
+    </div>
+    <a href="#" class="myButton" onclick="clearScreen();nextPokemon()">NEXT</a> 
+</div>`;
+
 let currentPokemon = null;
 let timesUp = false;
 var countDown = null;
@@ -11,22 +25,33 @@ canvas.width = canvasWidth;
 var context = canvas.getContext("2d"),
     img = new Image();
 
-var indexPokemon = getRandom(1, 150);
+function clearScreen(){
+    document.querySelector('#options-content').innerHTML = '';
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}
 
-selectPokemon(indexPokemon).then((pokemon) => {
+function nextPokemon() {
+    document.querySelector('#options-content').innerHTML = optionsHtmlContent;
 
-    timesUp = false;
-    currentPokemon = pokemon;
+    var indexPokemon = getRandom(1, 150);
 
-    drawPokemon(`assets/img/pokemons/${pokemon.id}.png`, canvas, context, true);
+    selectPokemon(indexPokemon).then((pokemon) => {
 
-    gelAllPokemonsNames().then((allNames) => {
-        var options = createOptions(pokemon, allNames);
-        showOptions(options);
-        startCountDown();
-    })
+        timesUp = false;
+        currentPokemon = pokemon;
 
-});
+        drawPokemon(`assets/img/pokemons/${pokemon.id}.png`, canvas, context, true);
+
+        gelAllPokemonsNames().then((allNames) => {
+            var options = createOptions(pokemon, allNames);
+            showOptions(options);
+            startCountDown();
+        })
+
+    });
+}
+
+nextPokemon();
 
 function showOptions(options) {
 
@@ -57,10 +82,13 @@ function startCountDown() {
 
 function checkAnswer(option) {
     disableAllOptions();
+    clearInterval(countDown);
     if (option.value.toUpperCase() === currentPokemon.name.toUpperCase()) {
-        clearInterval(countDown);
         document.getElementById('pokemon_name').appendChild(document.createTextNode(currentPokemon.name.toUpperCase()));
-        drawPokemon(`assets/img/pokemons/${currentPokemon.id}.png`, canvas, context, false);
+
+        setTimeout(() => drawPokemon(`assets/img/pokemons/${currentPokemon.id}.png`, canvas, context, false), 360);
+
+
         flipCheckAnswerCard(true);
 
     } else {
@@ -85,19 +113,23 @@ function isCorrectAnswerEffects() {
     optionsCard.classList.remove('animated');
     optionsCard.classList.remove('fadeInUp');
     optionsCard.classList.add('animated');
-    optionsCard.classList.add('flipOutY');
+    optionsCard.classList.add('rollOut');
 
-    optionsCard.addEventListener("animationend", () => {
+    setTimeout(() => {
         optionsCard.style.display = 'none';
         document.querySelector('#success-card').hidden = false;
         document.querySelector('#success-card').classList.add('flex-content');
-        
+
         document.querySelector('#correct-message').classList.add('animated');
         document.querySelector('#correct-message').classList.add('tada');
 
         document.querySelector('.myButton').classList.add('animated');
         document.querySelector('.myButton').classList.add('fadeIn');
-    });
+    }, 360);
+
+    //optionsCard.addEventListener("animationend", () => {
+
+    //});
 }
 
 function isIncorrectAnswerEffects() {

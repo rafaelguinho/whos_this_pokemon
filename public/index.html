@@ -14,6 +14,7 @@
     <link href="styles/messages.css" rel="stylesheet">
     <link href="styles/button.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Viga" rel="stylesheet">
     <link rel="stylesheet" href="styles/animate.css">
     <title>Who is this Pokemon?</title>
     <style>
@@ -31,6 +32,19 @@
             align-items: center;
             flex-direction: column
         }
+        #score{
+            font-family: 'Viga', sans-serif;
+            display: flex;
+            width: 100%;
+            color: white;
+            justify-content: space-between
+        }
+        .gold{
+            color: gold
+        }
+        .yellow{
+            color: yellow
+        }
     </style>
 
 
@@ -39,26 +53,18 @@
 <body>
 
     <div class="container">
+        <div id="score">
+            <p id="currentScore"><strong class="yellow">Current</strong> 22/150</p>
+            <p id="hiScore"><strong class="gold">High</strong> 66/150</p>
+        </div>
         <progress id="timeLeft" max="8" value="8"></progress>
         <canvas id="canvas" class="animated bounce"></canvas>
 
-
-        <div id="options-cards" class="animated fadeInUp">
-            <div id="options">
-            </div>
-        </div>
-
-
-        <div id="success-card" hidden>
-            <div id="correct-message">
-                <p class="pokemon-name success">Yeah!</p>
-                <br>
-                <p class="pokemon-name success">It's <span id="pokemon_name"></span>!</p>
-            </div>
-            <a href="#" class="myButton">NEXT</a> 
-        </div>
+    <div id="options-content">
 
     </div>
+        
+</div>
 
 
 
