@@ -54,8 +54,8 @@
 
     <div class="container">
         <div id="score">
-            <p id="currentScore"><strong class="yellow">Current</strong> 22/150</p>
-            <p id="hiScore"><strong class="gold">High</strong> 66/150</p>
+            <p><strong class="yellow">Current</strong><span id="currentScore"></span></p>
+            <p><strong class="gold">High</strong><span id="hiScore"></span></p>
         </div>
         <progress id="timeLeft" max="8" value="8"></progress>
         <canvas id="canvas" class="animated bounce"></canvas>
@@ -84,6 +84,7 @@
 
     </script>
 
+    <script src="scripts/score.js"></script>
     <script src="scripts/game.js"></script>
 </body>
 

@@ -1,7 +1,7 @@
 document.body.style.overflow = 'hidden';
 
-var optionsHtmlContent = 
-`<div id="options-cards" class="animated fadeInUp">
+var optionsHtmlContent =
+    `<div id="options-cards" class="animated fadeInUp">
     <div id="options">
     </div>
 </div>
@@ -11,9 +11,10 @@ var optionsHtmlContent =
         <br>
         <p class="pokemon-name success">It's <span id="pokemon_name"></span>!</p>
     </div>
-    <a href="#" class="myButton" onclick="clearScreen();nextPokemon()">NEXT</a> 
+    <a href="#" class="myButton" onclick="nextPokemon();">NEXT</a> 
 </div>`;
 
+let score;
 let currentPokemon = null;
 let timesUp = false;
 var countDown = null;
@@ -25,12 +26,35 @@ canvas.width = canvasWidth;
 var context = canvas.getContext("2d"),
     img = new Image();
 
-function clearScreen(){
+function showCurrentScore(score){
+    var currentScore = document.querySelector('#currentScore');
+    currentScore.innerHTML = '';
+    currentScore.appendChild(document.createTextNode(` ${score.current}/${score.maxScoreLevel}`));
+}
+
+function initGame() {
+
+    score = new Score(150);
+    
+    showCurrentScore(score);
+    selectAndShowPokemon();
+}
+
+initGame();
+
+function clearScreen() {
     document.querySelector('#options-content').innerHTML = '';
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function nextPokemon() {
+function nextPokemon(){
+    clearScreen();
+    score.increaseCurrentScore();
+    showCurrentScore(score);
+    selectAndShowPokemon();
+}
+
+function selectAndShowPokemon() {
     document.querySelector('#options-content').innerHTML = optionsHtmlContent;
 
     var indexPokemon = getRandom(1, 150);
@@ -51,8 +75,6 @@ function nextPokemon() {
     });
 }
 
-nextPokemon();
-
 function showOptions(options) {
 
     let html = '';
@@ -69,6 +91,7 @@ function showOptions(options) {
 
 function startCountDown() {
     var timeleft = 8;
+    document.querySelector("#timeLeft").value = timeleft;
     countDown = setInterval(function () {
         document.querySelector("#timeLeft").value = --timeleft;
 
