@@ -14,6 +14,7 @@ var optionsHtmlContent =
     <a href="#" class="myButton" onclick="nextPokemon();">NEXT</a> 
 </div>`;
 
+let level;
 let score;
 let currentPokemon = null;
 let timesUp = false;
@@ -26,7 +27,7 @@ canvas.width = canvasWidth;
 var context = canvas.getContext("2d"),
     img = new Image();
 
-function showCurrentScore(score){
+function showCurrentScore(score) {
     var currentScore = document.querySelector('#currentScore');
     currentScore.innerHTML = '';
     currentScore.appendChild(document.createTextNode(` ${score.current}/${score.maxScoreLevel}`));
@@ -34,8 +35,9 @@ function showCurrentScore(score){
 
 function initGame() {
 
-    score = new Score(150);
-    
+    level = new Level(2);
+    score = new Score(level);
+
     showCurrentScore(score);
     selectAndShowPokemon();
 }
@@ -47,7 +49,7 @@ function clearScreen() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function nextPokemon(){
+function nextPokemon() {
     clearScreen();
     score.increaseCurrentScore();
     showCurrentScore(score);
@@ -57,7 +59,7 @@ function nextPokemon(){
 function selectAndShowPokemon() {
     document.querySelector('#options-content').innerHTML = optionsHtmlContent;
 
-    var indexPokemon = getRandom(1, 150);
+    var indexPokemon = getRandom(level.currentGenerations[0].init, level.currentGenerations[level.currentGenerations.length - 1].end);
 
     selectPokemon(indexPokemon).then((pokemon) => {
 
