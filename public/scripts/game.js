@@ -16,6 +16,7 @@ var optionsHtmlContent =
 
 let level;
 let score;
+let lifes = 3;
 let currentPokemon = null;
 let timesUp = false;
 var countDown = null;
@@ -33,12 +34,21 @@ function showCurrentScore(score) {
     currentScore.appendChild(document.createTextNode(` ${score.current}/${score.maxScoreLevel}`));
 }
 
+function showLifes(lifes) {
+    var content = '';
+    for (var i = 0; i < lifes; i++) {
+        content += '<img src="assets/img/life.png" alt="">';
+    }
+    document.querySelector('#lifesContainer').innerHTML = content;
+}
+
 function initGame() {
 
     level = new Level(2);
     score = new Score(level);
 
     showCurrentScore(score);
+    showLifes(lifes);
     selectAndShowPokemon();
 }
 
@@ -118,6 +128,8 @@ function checkAnswer(option) {
 
     } else {
         flipCheckAnswerCard(false);
+        lifes--;
+        showLifes(lifes);
     }
 }
 

@@ -32,17 +32,20 @@
             align-items: center;
             flex-direction: column
         }
-        #score{
+
+        #score {
             font-family: 'Viga', sans-serif;
             display: flex;
             width: 100%;
             color: white;
             justify-content: space-between
         }
-        .gold{
+
+        .gold {
             color: gold
         }
-        .yellow{
+
+        .yellow {
             color: yellow
         }
     </style>
@@ -55,16 +58,17 @@
     <div class="container">
         <div id="score">
             <p><strong class="yellow">Current</strong><span id="currentScore"></span></p>
-            <p><strong class="gold">High</strong><span id="hiScore"></span></p>
+            <div id="lifesContainer"></div>
+            <p><strong class="gold">High</strong><span id="hiScore"> ---/---</span></p>
         </div>
         <progress id="timeLeft" max="8" value="8"></progress>
         <canvas id="canvas" class="animated bounce"></canvas>
 
-    <div id="options-content">
+        <div id="options-content">
+
+        </div>
 
     </div>
-        
-</div>
 
 
 
