@@ -1,3 +1,7 @@
+import drawImage from './drawing.js';
+import Level from './level.js';
+import Score from './score.js';
+
 document.body.style.overflow = 'hidden';
 
 var optionsHtmlContent =
@@ -59,7 +63,7 @@ function clearScreen() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function nextPokemon() {
+window.nextPokemon = function nextPokemon() {
     clearScreen();
     score.increaseCurrentScore();
     showCurrentScore(score);
@@ -115,7 +119,7 @@ function startCountDown() {
     }, 1000);
 }
 
-function checkAnswer(option) {
+window.checkAnswer = function checkAnswer(option) {
     disableAllOptions();
     clearInterval(countDown);
     if (option.value.toUpperCase() === currentPokemon.name.toUpperCase()) {
@@ -197,42 +201,7 @@ function getRandom(min, max) {
 }
 
 function drawPokemon(imageUrl, canvas, ctx, doSilhouette) {
-    var image = new Image();
-    image.src = imageUrl;
-
-    image.onload = function () {
-
-        var newImgWidth = canvasWidth;
-        var newImgHeight = image.height * (newImgWidth / image.width);
-
-        canvas.height = newImgHeight;
-
-        var imgX = 0;
-        var imgY = 0;
-
-        ctx.drawImage(image, imgX, imgY,
-            newImgWidth, newImgHeight
-        );
-
-        if (!doSilhouette) return;
-
-        var rawImage = ctx.getImageData(imgX, imgY, newImgWidth, newImgHeight);
-
-        for (var i = 0; i < rawImage.data.length; i += 4) {
-            if (rawImage.data[i + 3] >= 100) {
-                rawImage.data[i] = 30;
-                rawImage.data[i + 1] = 30;
-                rawImage.data[i + 2] = 30;
-                rawImage.data[i + 3] = 255;
-            } else {
-                rawImage.data[i + 3] = 0;
-            }
-        }
-
-        ctx.putImageData(rawImage, imgX, imgY);
-
-
-    };
+    drawImage(imageUrl, canvas, ctx, doSilhouette);
 }
 
 function createOptions(pokemon, allNames) {

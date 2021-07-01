@@ -1,4 +1,4 @@
-class Score {
+export default class Score {
 
     constructor(level) {
         this.current = 1;
